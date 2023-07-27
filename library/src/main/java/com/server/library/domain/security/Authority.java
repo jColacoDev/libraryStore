@@ -1,10 +1,8 @@
 package com.server.library.domain.security;
 
-import java.io.Serializable;
-
 import org.springframework.security.core.GrantedAuthority;
 
-public class Authority implements GrantedAuthority, Serializable{
+public class Authority implements GrantedAuthority{
     private static final long serialVersionUID = 123123L;
 
     private final String authority;

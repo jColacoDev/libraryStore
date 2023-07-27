@@ -1,6 +1,5 @@
 package com.server.library.domain.security;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +19,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class User implements UserDetails, Serializable{
+public class User implements UserDetails{
 
     private static final long serialVersionUID = 902783495L;
 
@@ -36,6 +35,18 @@ public class User implements UserDetails, Serializable{
     private String email;
     private String phone;
     private boolean enabled = true;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<UserRole> userRoles = new HashSet<>();
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
     public String getUsername() {
         return this.username;
@@ -89,10 +100,14 @@ public class User implements UserDetails, Serializable{
         this.enabled = enabled;
     }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
-    private Set<UserRole> userRoles = new HashSet<>();
+    public Set<UserRole> getUserRoles() {
+		return userRoles;
+	}
 
+	public void setUserRoles(Set<UserRole> userRoles) {
+		this.userRoles = userRoles;
+	}
+    
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
