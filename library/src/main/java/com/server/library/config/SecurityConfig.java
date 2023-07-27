@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import static org.springframework.security.config.Customizer.withDefaults;
 
+import org.springframework.session.web.http.HttpSessionStrategy;
 import com.server.library.service.UserSecurityService;
 
 @Configuration
@@ -49,4 +50,9 @@ public class SecurityConfig {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userSecurityService).passwordEncoder(passwordEncoder());
     }
+
+    // @Bean
+    // public HttpSessionStrategy httpSessionStrategy(){
+    //     return new HeaderHttpSessionStrategy();
+    // }
 }
